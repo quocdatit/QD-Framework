@@ -1,7 +1,7 @@
 <?php if(!defined('PATH_SYSTEM')) die('Bad request!');
 
 return array(
-	'show_error_reporting' => false,
+	'show_error_reporting' => true,
 
 	'db_host' => 'localhost',
 	'db_user' => 'db2admin',

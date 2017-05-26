@@ -2,31 +2,32 @@
 
 class QD_Controller
 {	
-	protected $model = NULL;
-	
-	protected $view = NULL;
-	
-	protected $helper = NULL;
-	
-	protected $library = NULL;
-
 	protected $config = NULL;
-
+	protected $library = NULL;
+	protected $model = NULL;
+	protected $view = NULL;
+	protected $helper = NULL;
 	protected $params = NULL;
-
-	protected $load = NULL;
 	
 	function __construct() {
 		// Config_Loader
 		require_once(PATH_SYSTEM . '/core/Loader/Config_Loader.php');
 	    $this->config = new Config_Loader();
 	    $this->config->load('config');
-
-	    require_once(PATH_SYSTEM . '/core/QD_Loader.php');
-	    $this->load = new QD_Loader();
-	    
+	    // Library_Loader
+	    require_once(PATH_SYSTEM . '/core/Loader/Library_Loader.php');
+	    $this->library = new Library_Loader();
+	    // Model_Loader
+	    require_once(PATH_SYSTEM . '/core/Loader/Model_Loader.php');
+	    $this->model = new Model_Loader();
+	    // View_Loader
+	    require_once(PATH_SYSTEM . '/core/Loader/View_Loader.php');
+	    $this->view = new View_Loader();
+	    // Helper_Loader
+	    require_once(PATH_SYSTEM . '/core/Loader/Helper_Loader.php');
+	    $this->helper = new Helper_Loader();
 	    // Get Parameters from $_SERVER['QUERY_STRING']
-		$this->getParameters();
+		$this->params = $this->getParameters();
 	}
 
 	protected function getParameters() {
@@ -38,7 +39,7 @@ class QD_Controller
 				$value = explode('=', $value);
 				$_params[$value[0]] = $value[1];
 			}
-			$this->params = $_params;
+			return $_params;
 		}
 	}
 }

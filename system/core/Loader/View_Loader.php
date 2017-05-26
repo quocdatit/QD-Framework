@@ -2,11 +2,12 @@
 
 class View_Loader
 {
-	public function load($view, ) {
-        if (empty($this->{$library})) {
-            $_class = ucfirst($library) . '_Library';
-            require_once(PATH_SYSTEM . '/library/' . $_class . '.php');
-            $this->{$library} = new $_class();
-        }
+	public function load($_view, $data = array()) {
+        extract($data);
+        ob_start();
+        require_once(PATH_APPLICATION . '/view/' . $_view . '.php');
+        $html = ob_get_contents();
+        ob_end_clean();
+        echo $html;
     }
 }

@@ -4,15 +4,16 @@ class Home extends QD_Controller
 {
 	function __construct() {
 		parent::__construct();
-		$this->load->library('upload');
+		
 	}
 
 	function index() {
-
+		echo 'hello';
 	}
 
 	function testLibrary() {
-		$myUploader = $this->load->library->upload;
+		$this->library->load('upload');
+		$myUploader = $this->library->upload;
 		$myUploader->upload();
 	}
 
@@ -30,6 +31,13 @@ class Home extends QD_Controller
 		$data = array(
 			'list' => $list
 		);
-		$this->load->view('view', $data);
+		$this->view->load('view', $data);
+	}
+
+	function testModel() {
+		$this->model->load('demo');
+		$myModel = $this->model->demo;
+
+		echo $myModel->getUser('Huỳnh Quốc Đạt');
 	}
 }
